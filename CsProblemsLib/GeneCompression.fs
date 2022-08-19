@@ -1,20 +1,8 @@
 namespace CsProblemsLib
 
-module Extensions =
-    open System
-    open System.Globalization
-
-    type String with
-        member s.Reverse() =
-            StringInfo.ParseCombiningCharacters(s)
-            |> Array.rev
-            |> Seq.map (fun i -> StringInfo.GetNextTextElement(s, i))
-            |> String.concat ""
-
-
 module GeneCompression =
     open System
-    open Extensions
+    open Utils.Fs.Extensions
 
     let numBits (n: bigint) = n.GetBitLength()
 
@@ -31,7 +19,7 @@ module GeneCompression =
 
         member private self.compress(gene: string) =
             self.bitString <- bigint 1
-            printfn "Length of string: %d" gene.Length
+            // printfn "Length of string: %d" gene.Length
 
             for nucleotide in gene.ToUpper() do
                 // shift left 2
